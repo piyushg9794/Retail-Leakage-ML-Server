@@ -1,1 +1,2 @@
-web: airflow db init
+release: airflow db init
+web: airflow webserver -p $PORT --daemon && airflow scheduler
