@@ -7,6 +7,8 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+logs
+.vscode
 .Python
 build/
 develop-eggs/
@@ -106,6 +108,7 @@ celerybeat.pid
 .venv
 env/
 venv/
+virtenv/
 ENV/
 env.bak/
 venv.bak/
