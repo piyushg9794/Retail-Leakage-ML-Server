@@ -1,7 +1,7 @@
+from getdb import Db
 import pickle
 from data.preddata import PredData
 import json
-from getdb import Db
 
 
 

@@ -11,16 +11,16 @@ import datetime as dt
 
 rf = RandomForestRegressor()
 rf_param = {'bootstrap': [True, False],
- 'max_depth': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None],
+ 'max_depth': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
  'max_features': ['auto', 'sqrt'],
  'min_samples_leaf': [1, 2, 4],
  'min_samples_split': [2, 5, 10],
  'n_estimators': [200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000]
  }
 
-smooth_kernel = RBF()
-local_periodic_kernel = ExpSineSquared()*RBF()
-irregular_kernel = RationalQuadratic()
+smooth_kernel = RBF(length_scale=1.0, length_scale_bounds=(1e-1, 10.0))
+local_periodic_kernel = ExpSineSquared()*smooth_kernel
+irregular_kernel = RationalQuadratic(length_scale=1.0, alpha=0.1)
 kernel = (smooth_kernel + local_periodic_kernel + irregular_kernel)
 fin_model = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=10, copy_X_train=False)
 
@@ -48,6 +48,3 @@ pipe = Pipeline([
             ('GPR_Model', fin_model)
             ])
 
-
-# https://www.kaggle.com/metadist/work-like-a-pro-with-pipelines-and-feature-unions
-# hyperparameter tuning of kernel, rf paramgrid
