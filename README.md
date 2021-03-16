@@ -20,3 +20,11 @@ Machine Learning Server for 'Retail Leakage &amp; Surplus in PDS' project
   * Irregular kernel (Rational Quadratic): This kernel is used to learn short-term to mid-term irregularites in data. In practical sense this will help in modelling some unpredictable features of data.
 
 
+## Server Architecture:
+
+* There are 2 pipelines one for retraining & other for prediction
+* Apache Airflow is used for scheduling & monitoring these pipelines
+* Flow:
+  * On the addition of new data to training database, retraining pipeline will be triggered and the model will retrain by consuming latest data.
+  * On the successful execution of retraining pipeline, prediction pipeline will be triggered, which will predict the data for further next 3 months & will save it to SQL database.
+  * If any error is encountered in server or model performance is degraded significantly then then we will get notified in our monitoring portal.
